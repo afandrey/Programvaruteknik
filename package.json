@@ -1,0 +1,23 @@
+{
+  "name": "af222ug_1dv600",
+  "version": "1.0.0",
+  "description": "JavaScript console Hangman game",
+  "main": "app.js",
+  "dependencies": {
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afandrey/af222ug_1dv600.git"
+  },
+  "author": "Alva Fandrey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afandrey/af222ug_1dv600/issues"
+  },
+  "homepage": "https://github.com/afandrey/af222ug_1dv600#readme"
+}
