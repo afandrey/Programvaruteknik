@@ -36,7 +36,7 @@ class Game {
             if (option === '1') {
                 this.playGame();
             } else if (option === '2') {
-                this.viewHighScore();
+                console.log('Viewing high score list');
             } else if (option === '3') {
                 this.quitGame();
             } else {
@@ -118,11 +118,6 @@ class Game {
     quitGame() {
         console.log('Quit application');
         rl.close();
-    }
-
-    viewHighScore() {
-        // extra functionality (high score list)
-        console.log('Viewing high score list');
     }
 }
 
