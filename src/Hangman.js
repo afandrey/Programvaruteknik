@@ -5,6 +5,13 @@ let rl = require('readline').createInterface({
 let clear = require('clear');
 
 class Game {
+    constructor() {
+        this.used = [];
+        this.secretWord = [];
+        this.remainingTries = 10;
+        this.nickname;
+    }
+
     start() {
         // start the application with letting player enter their name
         clear();
@@ -13,6 +20,7 @@ class Game {
 
     setName() {
         rl.question('Enter your name: ', (answer) => {
+            this.nickname = answer;
             // give the player the menu options
             this.menuOptions(answer);
         });
@@ -38,9 +46,14 @@ class Game {
     }
 
     randomWord() {
-        let words = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+        let words = ['january', 'march', 'may'];
 
         let rnd = words[Math.floor(Math.random() * words.length)];
+
+        // exchange letters for underscores
+        for (let i = 0; i < rnd.length; i++) {
+            this.secretWord.push('_ ');
+        }
 
         return rnd;
     }
@@ -49,37 +62,57 @@ class Game {
         clear();
         // start the game with a random word 
         let word = this.randomWord();
-        let secretWord = word.replace(/[a-z]/g, '_ ');
 
-        // display the word with underscore instead of letters
-        console.log(secretWord);
+        console.log(this.secretWord.join(' '));
 
         // let the player guess
+        console.log(`You have: ${this.remainingTries} lives`);
         rl.question('Make your guess: ', (letter) => {
-            this.guess(letter, secretWord, word);
+            this.guess(letter, word);
         });
     }
 
-    guess(letter, secretWord, word) {
-        let used = [];
-
+    guess(letter, word) {
         // check if letter has already been guessed
-        if (used.includes(letter)) {
-            console.log('Try another one...');
+        if (this.used.includes(letter)) {
+            console.log('You have already used this letter!');
+        } else {
+            // if letter has not been guessed, push to array
+            // TODO: do not push if it's a match?
+            this.used.push(letter);
         }
 
-        used.push(letter);
         for (let i = 0; i < word.length; i++) {
             if (letter === word[i]) {
                 // exchange underscore for letter if it's a match
-                console.log('its a match');
+                this.secretWord[i] = letter;
             }
+            // TODO: reduce this.remainingTries when the letter is not a match
         }
-        // display all used letters
-        console.log(used);
-        console.log(secretWord);
 
-        // TODO: need to be able to continue guessing
+        // display secretWord after guessing a letter
+        console.log();
+        console.log(this.secretWord.join(' '));
+
+        // display all used letters
+        console.log('\x1b[33m%s\x1b[0m', this.used);
+        console.log(`You have: ${this.remainingTries} lives`);
+
+        rl.question('Make your guess: ', (letter) => {
+            this.guess(letter, word);
+        });
+
+        if (this.secretWord.join('').toString() === word) {
+            clear();
+            console.log('Congratulations! You Won!');
+            // TODO: go back to menuOptions instead
+            this.quitGame();
+        }
+
+        if (this.remainingTries === 0) {
+            clear();
+            console.log('Sorry! You lost the game');
+        }
     }
 
     quitGame() {
