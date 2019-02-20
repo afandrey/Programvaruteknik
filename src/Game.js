@@ -1,11 +1,13 @@
-var rl = require('readline').createInterface({
+let rl = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
+let clear = require('clear');
 
 class Game {
     start() {
         // start the application with letting player enter their name
+        clear();
         this.setName();
     }
 
@@ -17,6 +19,7 @@ class Game {
     }
 
     menuOptions(name) {
+        clear();
         console.log(`Welcome, ${name}! What would you like to do?`);
         console.log('1 = Play game');
         console.log('2 = View high scores');
@@ -30,15 +33,53 @@ class Game {
                 this.quitGame();
             } else {
                 console.log('Wrong input');
-                this.quitGame();
             }
         });
     }
 
+    randomWord() {
+        let words = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+
+        let rnd = words[Math.floor(Math.random() * words.length)];
+
+        return rnd;
+    }
+
     playGame() {
+        clear();
         // start the game with a random word 
-        // (when this is working, implement choosing category as extra functionality)
-        console.log('Begin the game!');
+        let word = this.randomWord();
+        let secretWord = word.replace(/[a-z]/g, '_ ');
+
+        // display the word with underscore instead of letters
+        console.log(secretWord);
+
+        // let the player guess
+        rl.question('Make your guess: ', (letter) => {
+            this.guess(letter, secretWord, word);
+        });
+    }
+
+    guess(letter, secretWord, word) {
+        let used = [];
+
+        // check if letter has already been guessed
+        if (used.includes(letter)) {
+            console.log('Try another one...');
+        }
+
+        used.push(letter);
+        for (let i = 0; i < word.length; i++) {
+            if (letter === word[i]) {
+                // exchange underscore for letter if it's a match
+                console.log('its a match');
+            }
+        }
+        // display all used letters
+        console.log(used);
+        console.log(secretWord);
+
+        // TODO: need to be able to continue guessing
     }
 
     quitGame() {
@@ -48,12 +89,7 @@ class Game {
 
     viewHighScore() {
         // extra functionality (high score list)
-        // count guesses and how long time the game took
         console.log('Viewing high score list');
-    }
-
-    timer() {
-        // start a timer when game starts (add to high score functionality)
     }
 }
 

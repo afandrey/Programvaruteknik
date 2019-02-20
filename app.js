@@ -1,4 +1,4 @@
-var Game = require('./src/Game.js');
+let Game = require('./src/Game.js');
 
-var hangman = new Game();
+let hangman = new Game();
 hangman.start();
