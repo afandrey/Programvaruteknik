@@ -5,6 +5,7 @@ let rl = require('readline').createInterface({
 let clear = require('clear');
 
 class Game {
+
     constructor() {
         this.used = [];
         this.secretWord = [];
@@ -12,8 +13,8 @@ class Game {
         this.nickname;
     }
 
+    // start the application with letting player enter their name
     start() {
-        // start the application with letting player enter their name
         clear();
         this.setName();
     }
@@ -28,19 +29,23 @@ class Game {
 
     menuOptions(name) {
         clear();
-        console.log(`Welcome, ${name}! What would you like to do?`);
+
+        console.log(`Welcome, ${name}! Enter a number 1-3: `);
         console.log('1 = Play game');
         console.log('2 = View high scores');
         console.log('3 = Quit');
-        rl.question('Enter a number 1-3: ', (option) => {
-            if (option === '1') {
+
+        rl.question('What would you like to do? ', (answer) => {
+            if (answer === '1') {
                 this.playGame();
-            } else if (option === '2') {
+            } else if (answer === '2') {
+                // TODO: implement high score list if there is time
                 console.log('Viewing high score list');
-            } else if (option === '3') {
-                this.quitGame();
+            } else if (answer === '3') {
+                this.closeApplication();
             } else {
                 console.log('Wrong input');
+                this.menuOptions(name);
             }
         });
     }
@@ -60,14 +65,15 @@ class Game {
 
     playGame() {
         clear();
+
         // start the game with a random word 
         let word = this.randomWord();
 
+        // display the secret word to the player
         console.log(this.secretWord.join(' '));
 
         // let the player guess
-        console.log(`You have: ${this.remainingTries} lives`);
-        rl.question('Make your guess: ', (letter) => {
+        rl.question(`You have ${this.remainingTries} tries left. Make your guess: `, (letter) => {
             this.guess(letter, word);
         });
     }
@@ -82,23 +88,24 @@ class Game {
             this.used.push(letter);
         }
 
+        // check if guessed letter matches a letter in the word
         for (let i = 0; i < word.length; i++) {
             if (letter === word[i]) {
-                // exchange underscore for letter if it's a match
+                // if it's a match, exchange underscore for letter
                 this.secretWord[i] = letter;
-            }
+            } 
             // TODO: reduce this.remainingTries when the letter is not a match
         }
 
         // display secretWord after guessing a letter
-        console.log();
+        clear();
         console.log(this.secretWord.join(' '));
 
         // display all used letters
         console.log('\x1b[33m%s\x1b[0m', this.used);
-        console.log(`You have: ${this.remainingTries} lives`);
 
-        rl.question('Make your guess: ', (letter) => {
+        // continue guessing until the word is completed or until remainingTries = 0
+        rl.question(`You have ${this.remainingTries} tries left. Make your guess: `, (letter) => {
             this.guess(letter, word);
         });
 
@@ -106,17 +113,24 @@ class Game {
             clear();
             console.log('Congratulations! You Won!');
             // TODO: go back to menuOptions instead
-            this.quitGame();
+            this.closeApplication();
         }
 
         if (this.remainingTries === 0) {
             clear();
+            // TODO: go back to menuOptions
             console.log('Sorry! You lost the game');
         }
     }
 
-    quitGame() {
-        console.log('Quit application');
+    endGame() {
+        // TODO: go back to menu if game is ended before finsihed
+        console.log('Go back to menu');
+    }
+
+    closeApplication() {
+        // TODO: confirm termination
+        console.log('Close application');
         rl.close();
     }
 }
