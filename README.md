@@ -3,6 +3,12 @@
 Student id: af222ug    
 Student full name: Alva Fandrey
 
+## Start application
+1. Clone repository to your computer
+2. cd into that folder
+3. Run command: `npm install` to install packages
+4. Run command: `npm start` or `node app.js` to start application
+
 ## Project description
 ### Hangman
 
