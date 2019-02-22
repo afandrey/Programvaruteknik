@@ -6,11 +6,8 @@ let clear = require('clear');
 
 class Game {
 
-    // TODO: is the word random? can you get another word after winning/losing a game
-    // TODO: after winning/losing game the menu is not right, faulty guesses pops up after what would you like to do
-
     constructor() {
-        this.word = this.randomWord();
+        this.word = '';
         this.used = [];
         this.secretWord = [];
         this.remainingTries = 10;
@@ -25,42 +22,47 @@ class Game {
 
     setName() {
         rl.question('Enter your name: ', (answer) => {
+            clear();
             this.nickname = answer;
 
             if (answer === "Admin") {
-                console.log('Admin menuOptions');
+                console.log('TODO: Implement Admin menuOptions');
             } else {
                 // give the player the menu options
-                this.menuOptions(answer);
+                console.log(`Welcome, ${answer}`);
+                this.menuOptions();
             }
         });
     }
 
-    menuOptions(name) {
+    menuOptions() {
         console.log();
 
-        console.log(`Welcome, ${name}! Enter a number 1-3: `);
+        console.log(`Enter a number 1-3: `);
         console.log('1 = Play game');
         console.log('2 = View high scores');
         console.log('3 = Quit Game');
 
         rl.question('What would you like to do? ', (answer) => {
             if (answer === '1') {
+                clear();
+                console.log('Press: 0, to go back to main menu');
+                this.word = this.randomWord();
                 this.playGame(this.word);
             } else if (answer === '2') {
-                // TODO: implement high score list if there is time
-                console.log('Viewing high score list');
+                console.log('TODO: Implement high score list');
             } else if (answer === '3') {
                 this.quitGame();
             } else {
-                this.menuOptions(name);
+                clear();
+                this.menuOptions();
                 console.log('Wrong input');
             }
         });
     }
 
     randomWord() {
-        let words = ['computer', 'dog', 'game'];
+        let words = ['computer', 'dog', 'game', 'house', 'document'];
 
         let rnd = words[Math.floor(Math.random() * words.length)];
 
@@ -75,70 +77,76 @@ class Game {
     }
 
     playGame(word) {
+        // if the word has not been made a secret, do it
         if (this.secretWord.length === 0) {
             this.generateSecretWord();
         }
 
-        // check if word is completed
         if (this.secretWord.join('').toString() === word) {
-            console.log();
+            // checks if word is completed = game is won
+            clear();
             console.log('Congratulations! You Won!');
+            console.log('The word was: ', this.secretWord.join(''));
             this.goBack();
-        }
-
-        // check if game is lost
-        if (this.remainingTries <= 0) {
-            console.log();
+        } else if (this.remainingTries <= 0) {
+            // checks if game is lost
+            clear();
             console.log('Sorry! You lost the game');
+            console.log('The word was: ', this.word);
             this.goBack();
+        } else {
+            console.log();
+            // display all used letters
+            console.log('\x1b[33m%s\x1b[0m', 'Faulty guesses: ', this.used);
+            // display the secret word to the player
+            console.log(this.secretWord.join(' '));
+
+            // let the player have a guess
+            rl.question(`You have ${this.remainingTries} tries left. Make your guess: `, (letter) => {
+                if (letter === '0') {
+                    // go back to menu at any time during the game
+                    this.goBack();
+                } else if (letter.length != 1) {
+                    console.log('Only one letter at a time!');
+                    this.playGame(word);
+                } else if (isNaN(letter) === false) {
+                    console.log('You can only input letters');
+                    this.playGame(word);
+                } else if (this.used.includes(letter) || this.secretWord.includes(letter)) {
+                    console.log('You have already used this letter!');
+                    this.playGame(word);
+                } else {
+                    this.checkGuess(letter, word);
+                }
+            });
         }
-
-        // display all used letters
-        console.log('\x1b[33m%s\x1b[0m', 'Faulty guesses: ', this.used);
-        // display the secret word to the player
-        console.log(this.secretWord.join(' '));
-
-        // let the player guess
-        rl.question(`You have ${this.remainingTries} tries left. Make your guess: `, (letter) => {
-            if (letter === '1') {
-                this.goBack();
-            } else if (letter.length != 1) {
-                console.log('Only one letter at a time!');
-                this.playGame(word);
-            } else {
-                this.checkGuess(letter, word);
-            }
-        });
     }
 
     checkGuess(letter, word) {
-        // check if letter has already been guessed
-        if (this.used.includes(letter)) {
-            console.log('You have already used this letter!');
-            this.playGame(word);
-        } else {
-            // check if guessed letter matches a letter in the word
-            for (let i = 0; i < word.length; i++) {
-                if (letter === word[i]) {
-                    // if it's a match, exchange underscore for letter
-                    this.secretWord[i] = letter;
-                    // continue guessing
-                    this.playGame(word);
-                    return;
-                }
+        // check if guessed letter matches a letter in the word
+        for (let i = 0; i < word.length; i++) {
+            if (letter === word[i]) {
+                // if it's a match, exchange underscore for letter
+                this.secretWord[i] = letter;
+                // continue guessing
+                this.playGame(word);
+                return;
             }
-
-            this.used.push(letter);
-            this.remainingTries--;
-            this.playGame(word);
         }
+
+        this.used.push(letter);
+        this.remainingTries--;
+
+        // continue guessing
+        this.playGame(word);
+
     }
 
     goBack() {
         this.used = [];
         this.secretWord = [];
         this.remainingTries = 10;
-        this.menuOptions(this.nickname);
+        this.menuOptions();
     }
 
     quitGame() {
@@ -148,7 +156,7 @@ class Game {
                 rl.close();
                 clear();
             } else {
-                this.menuOptions(this.nickname);
+                this.menuOptions();
             }
         })
     }
