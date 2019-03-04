@@ -50,7 +50,7 @@ class Game {
             if (answer === '1') {
                 clear();
                 console.log('Press: 0, to go back to main menu');
-                this.word = this.randomWord();
+                this.word = this.generateRandomWord();
                 this.playGame(this.word);
             } else if (answer === '2') {
                 console.log('TODO: Implement high score list');
@@ -64,7 +64,7 @@ class Game {
         });
     }
 
-    randomWord() {
+    generateRandomWord() {
         let words = ['computer', 'dog', 'game', 'house', 'document'];
 
         let rnd = words[Math.floor(Math.random() * words.length)];
@@ -90,13 +90,13 @@ class Game {
             clear();
             console.log('Congratulations! You Won!');
             console.log('The word was: ', this.secretWord.join(''));
-            this.goBack();
+            this.restartGame();
         } else if (this.remainingTries <= 0) {
             // checks if game is lost
             clear();
             console.log('Sorry! You lost the game');
             console.log('The word was: ', this.word);
-            this.goBack();
+            this.restartGame();
         } else {
             console.log();
             // display all used letters
@@ -108,7 +108,7 @@ class Game {
             rl.question(`You have ${this.remainingTries} tries left. Make your guess: `, (letter) => {
                 if (letter === '0') {
                     // go back to menu at any time during the game
-                    this.goBack();
+                    this.restartGame();
                 } else if (letter.length != 1) {
                     console.log('Only one letter at a time!');
                     this.playGame(word);
@@ -119,13 +119,13 @@ class Game {
                     console.log('You have already used this letter!');
                     this.playGame(word);
                 } else {
-                    this.checkGuess(letter, word);
+                    this.validateGuess(letter, word);
                 }
             });
         }
     }
 
-    checkGuess(letter, word) {
+    validateGuess(letter, word) {
         // check if guessed letter matches a letter in the word
         for (let i = 0; i < word.length; i++) {
             if (letter === word[i]) {
@@ -145,7 +145,7 @@ class Game {
 
     }
 
-    goBack() {
+    restartGame() {
         this.used = [];
         this.secretWord = [];
         this.remainingTries = 10;
