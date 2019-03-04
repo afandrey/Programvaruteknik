@@ -10,7 +10,7 @@ class Game {
         this.word = '';
         this.used = [];
         this.secretWord = [];
-        this.remainingTries = 10;
+        this.remainingTries = 8;
         this.nickname;
     }
 
@@ -148,7 +148,7 @@ class Game {
     restartGame() {
         this.used = [];
         this.secretWord = [];
-        this.remainingTries = 10;
+        this.remainingTries = 8;
         this.menuOptions();
     }
 
