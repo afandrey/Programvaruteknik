@@ -27,6 +27,9 @@ class Game {
 
             if (answer === "Admin") {
                 console.log('TODO: Implement Admin menuOptions');
+            } else if (answer === "") {
+                this.start();
+                console.log('You must enter at least one character!');
             } else {
                 // give the player the menu options
                 console.log(`Welcome, ${answer}`);
