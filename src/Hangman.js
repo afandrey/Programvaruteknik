@@ -1,4 +1,7 @@
+'use strict';
+
 let rl = require('readline-sync');
+let wordGenerator = require('./WordGenerator.js');
 
 let words = ['computer', 'dog', 'game', 'house', 'document'];
 let randomWord = [];
@@ -7,17 +10,11 @@ let usedLetters = [];
 let remainingTries = 8;
 
 function start() {
-    generateRandomWord();
+    randomWord = wordGenerator.generateRandomWord(words);
+    secretWord = wordGenerator.generateSecretWord(randomWord);
     guess();
 }
 
-function generateRandomWord() {
-    randomWord = words[Math.floor(Math.random() * words.length)];
-
-    for (let i = 0; i < randomWord.length; i++) {
-        secretWord.push('_ ');
-    }
-}
 
 function guess() {
     if (secretWord.join('').toString() === randomWord) {

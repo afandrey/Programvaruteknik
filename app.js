@@ -1,4 +1,4 @@
 'use strict';
 
-let start = require('./src/Startup.js');
-start();
+let game = require('./src/Startup.js');
+game.start();

@@ -16,9 +16,12 @@ function setName() {
     } else if (nickname === "") {
         console.log('You must enter at least one character!');
     } else {
-        // give the player the menu options
         console.log(`Welcome, ${nickname}`);
     }
+
 }
 
-module.exports = start;
+module.exports = {
+    start: start,
+    setName: setName
+};

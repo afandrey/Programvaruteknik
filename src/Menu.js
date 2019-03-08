@@ -2,6 +2,7 @@
 
 let rl = require('readline-sync');
 let Hangman = require('./Hangman.js');
+let Highscore = require('./Highscore.js');
 let QuitGame = require('./QuitGame.js');
 
 function menuOptions() {
@@ -17,7 +18,7 @@ function menuOptions() {
         Hangman.start();
         return menuOptions();
     } else if (input === '2') {
-        console.log('TODO: Implement high score list');
+        console.log(Highscore());
     } else if (input === '0') {
         let quit = rl.question('Are you sure you want to quit the game? Y/N ')
         if (quit === 'Y' || quit === 'y') {
