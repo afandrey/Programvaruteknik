@@ -1,20 +1,41 @@
 // https://codeburst.io/javascript-unit-testing-using-mocha-and-chai-1d97d9f18e71
 let assert = require('assert');
+let convert = require('../app.js');
+let Hangman = require('../src/Hangman.js');
+let game = new Hangman();
 
-/**
- * describe is a function which holds the collection of tests
- * @param 'first one' - the meaningful name to functionality under test
- * @param 'second one' - the function which contains one or multiple tests
-*/
-describe('Basic Mocha String Test', function () {
-    // it is a function which is actually a test itself and takes two parameters
-    // first is name to the test and second is function which holds the body of the test
-    it('should return number of characters in a string', function () {
-        // assert helps to determine the status of the test, it determines failure of the test.
-        assert.equal("Hello".length, 4);
+describe('Temperature Conversion', function () {
+    describe('cToF', function () {
+        it('should convert -40 celsius to -40 fahrenheit', function () {
+            assert.equal(-40, convert.cToF(-40));
+        });
+
+        it('should convert 0 celsius to 32 fahrenheit', function () {
+            assert.equal(32, convert.cToF(0));
+        });
+
+        it('should return undefined if no temperature is input', function () {
+            assert.equal(undefined, convert.cToF(''));
+        });
     });
 
-    it('should return first character of the string', function () {
-        assert.equal("Hello".charAt(0), 'H');
+    describe('fToC', function () {
+        it('should convert -40 fahrenheit to -40 celsius', function () {
+            assert.equal(-40, convert.fToC(-40));
+        });
+        it('should convert 32 fahrenheit to 0 celsius', function () {
+            assert.equal(0, convert.fToC(32));
+        });
+        it('should return undefined if no temperature is input', function () {
+            assert.equal(undefined, convert.fToC(''));
+        });
     });
 });
+
+describe('Hangman Game', function () {
+    describe('setName()', function() {
+        it('should return a string', function () {
+            assert.equal(game.setName(), 'string');
+        })
+    })
+})

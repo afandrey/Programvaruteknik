@@ -1,4 +1,4 @@
-let Hangman = require('./src/Hangman.js');
+'use strict';
 
-let game = new Hangman();
-game.start();
+let menu = require('./src/Menu.js');
+menu();

@@ -7,7 +7,10 @@ Student full name: Alva Fandrey
 1. Clone repository to your computer
 2. cd into that folder
 3. Run command: `npm install` to install packages
-4. Run command: `npm start` or `node app.js` to start application
+4. Run command: `node app.js` to start application
+
+To test the application run the command: `npm test` in the terminal.     
+The test results will be displayd in the terminal.
 
 ## Project description
 ### Hangman
