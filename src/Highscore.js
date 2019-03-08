@@ -1,8 +1,10 @@
 'use strict';
 
 function Highscore() {
-    // TODO: create an array to test if the test will pass
-    return 'Highscore list';
+    let highscores = ['Alva 4', 'Erik 6', 'Karl 2'];
+
+    return highscores;
+    //return 'Highscore list';
 }
 
 module.exports = Highscore;
