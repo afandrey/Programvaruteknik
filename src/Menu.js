@@ -19,11 +19,11 @@ function menuOptions() {
     } else if (input === '2') {
         console.log('TODO: Implement high score list');
     } else if (input === '0') {
-        let quit = QuitGame();
-        if (quit === false) {
-            menuOptions();
+        let quit = rl.question('Are you sure you want to quit the game? Y/N ')
+        if (quit === 'Y' || quit === 'y') {
+            console.log(QuitGame());
         } else {
-            console.log(quit);
+            menuOptions();
         }
     } else {
         console.log('Wrong input');

@@ -13,7 +13,6 @@ function start() {
 
 function generateRandomWord() {
     randomWord = words[Math.floor(Math.random() * words.length)];
-    console.log('random: ' + randomWord);
 
     for (let i = 0; i < randomWord.length; i++) {
         secretWord.push('_ ');
