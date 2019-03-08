@@ -6,7 +6,7 @@ let WordGenerator = require('../src/WordGenerator.js');
 let Highscore = require('../src/Highscore.js');
 
 describe('Hangman Game', function () {
-    describe('Quit', function () {
+    describe('QuitGame', function () {
         it('should return Goodbye! message', function () {
             assert.equal(QuitGame(), 'Goodbye!');
         });
@@ -16,7 +16,7 @@ describe('Hangman Game', function () {
         });
     });
 
-    describe('randomWord', function () {
+    describe('generateRandomWord', function () {
         let testArray = ['buddy'];
         let testRandom = WordGenerator.generateRandomWord(testArray);
         it('should return random word "buddy"', function () {
