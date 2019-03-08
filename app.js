@@ -1,4 +1,4 @@
 'use strict';
 
-let menu = require('./src/Menu.js');
-menu();
+let start = require('./src/Startup.js');
+start();
