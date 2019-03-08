@@ -23,8 +23,8 @@ describe('Hangman Game', function () {
             assert.equal(testRandom, 'buddy');
         });
 
-        it('should be an array', function () {
-            assert.isArray(WordGenerator.generateSecretWord(testRandom));
+        it('should be a string', function () {
+            assert.isString(testRandom);
         })
     });
 
