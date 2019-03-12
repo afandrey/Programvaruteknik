@@ -13,6 +13,7 @@ function setName() {
     let nickname = rl.question('Enter your name: ');
 
     if (nickname === "Admin") {
+        // TODO: add password to enter
         // TODO: implement Admin menuOptions
         console.log('Admin menuOptions');
     } else if (nickname === "") {
