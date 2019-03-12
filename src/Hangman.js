@@ -3,6 +3,7 @@
 let rl = require('readline-sync');
 let wordGenerator = require('./WordGenerator.js');
 
+// TODO: exchange words for different dog breeds
 let words = ['computer', 'dog', 'game', 'house', 'document'];
 let randomWord = [];
 let secretWord = [];
@@ -49,6 +50,7 @@ function guess() {
 }
 
 function validateGuess(letter) {
+    // TODO: handle if the word contains the letter multiple times
     for (let i = 0; i < randomWord.length; i++) {
         if (letter === randomWord[i]) {
             secretWord[i] = letter;
