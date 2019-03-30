@@ -2,7 +2,7 @@
 
 function generateRandomWord(wordArray) {
     let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-
+    console.log(randomWord);
     return randomWord;
 }
 
@@ -12,7 +12,7 @@ function generateSecretWord(randomWord) {
     for (let i = 0; i < randomWord.length; i++) {
         secretWord.push('_ ');
     }
-
+    console.log(secretWord);
     return secretWord;
 }
 

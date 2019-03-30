@@ -2,16 +2,15 @@
 
 let rl = require('readline-sync');
 let wordGenerator = require('./WordGenerator.js');
+let data = require('../wordList.json');
 
-// TODO: exchange words for different dog breeds
-let words = ['computer', 'dog', 'game', 'house', 'document'];
 let randomWord = [];
 let secretWord = [];
 let usedLetters = [];
 let remainingTries = 8;
 
 function start() {
-    randomWord = wordGenerator.generateRandomWord(words);
+    randomWord = wordGenerator.generateRandomWord(data.words);
     secretWord = wordGenerator.generateSecretWord(randomWord);
     guess();
 }
