@@ -12,7 +12,7 @@ function generateSecretWord(randomWord) {
     for (let i = 0; i < randomWord.length; i++) {
         secretWord.push('_ ');
     }
-    console.log(secretWord);
+    
     return secretWord;
 }
 
