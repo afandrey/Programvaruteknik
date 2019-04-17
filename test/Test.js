@@ -10,10 +10,6 @@ describe('Hangman Game', function () {
         it('should return Goodbye! message', function () {
             assert.equal(QuitGame(), 'Goodbye!');
         });
-
-        it('should be a string', function () {
-            assert.isString(QuitGame());
-        });
     });
 
     describe('generateRandomWord', function () {
@@ -22,10 +18,6 @@ describe('Hangman Game', function () {
         it('should return random word "buddy"', function () {
             assert.equal(testRandom, 'buddy');
         });
-
-        it('should be a string', function () {
-            assert.isString(testRandom);
-        })
     });
 
     describe('Highscore', function () {
