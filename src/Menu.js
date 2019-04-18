@@ -49,9 +49,21 @@ function chooseLevel() {
         wordArray = data.levelThree;
     } else if (input === 'r') {
         wordArray = data.levelOne, data.levelTwo, data.levelThree;
-    } else {
+    } else if (input.toLocaleLowerCase() === 'test') {
+        console.log('The test word is: dog');
+        wordArray = data.testWord;
+    }
+    else {
         return menuOptions();
     }
 }
 
-module.exports = menuOptions;
+function getWordList() {
+    wordArray.push(data);
+    return wordArray;
+}
+
+module.exports = {
+    menuOptions: menuOptions,
+    getWordList: getWordList
+};

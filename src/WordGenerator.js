@@ -3,7 +3,6 @@
 function generateRandomWord(wordArray) {
     // get random word from predefined list
     let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-    console.log(randomWord);
 
     return randomWord;
 }
